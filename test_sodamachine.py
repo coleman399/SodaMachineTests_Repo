@@ -45,7 +45,6 @@ class TestFillInventory(unittest.TestCase):
     
     def test_fill_inventory(self):
         """verify proper amount of cans are added to inventory list"""
-
         inventory = self.soda_machine.inventory
 
         cola = 0
@@ -56,10 +55,10 @@ class TestFillInventory(unittest.TestCase):
         for can in range(0, len(inventory)):
             with self.subTest("Subtest", can = can):
                 # supposed to be 10 Cola
-                if inventory[can].name == 'Quarter':
+                if inventory[can].name == 'Cola':
                     cola += 1
                 # supposed to be 10 Orange Soda
-                elif inventory[can].name == 'Dime':
+                elif inventory[can].name == 'Orange Soda':
                     orange_soda += 1
                 # supposed to be 10 Root Beer
                 else:
