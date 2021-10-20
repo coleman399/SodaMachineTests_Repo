@@ -79,7 +79,9 @@ class TestGetCoinFromRegister(unittest.TestCase):
     def test_get_coin_from_register(self):
         """make sure coin got removed from register list and return the same coin"""
         register = self.soda_machine.register
-        
+        can_be_returned = None
+        proper_name = None
+
         print(f"The length of the inventory is {len(register)}.")
         for coin in range(0, len(register)):
             with self.subTest("Subtest", coin = coin):
@@ -126,7 +128,36 @@ class RegisterHasCoin(unittest.TestCase):
                 
         self.assertTrue(proper_name) 
 
-       
+class DetermineChangeValue:
+    """test determine_change_value method in SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+
+    def test_determine_change_value(self):
+        """test with total payment higher, test with select_soda_price higher, test with two equal values"""
+        higher_payment = self.soda_machine.determine_change_value(10, 5)
+        higher_price = self.soda_machine.determine_change_value(5, 10)
+        equal_pay = self.soda_machine.determine_change_value(5, 5)
+        expected_result = [True, True, True]
+        result = []
+        
+        if higher_payment == 5:
+            result.append(True)
+        else:
+            result.append(False)
+        
+        if higher_price == -5:
+            result.append(True)
+        else:
+            result.append(False)
+        
+        if equal_pay == 0:
+            result.append(True)
+        else:
+            result.append(False)
+        
+        print(result)
+        self.assertEqual(expected_result, result)
 
 if __name__ == '__main__':
     unittest.main()
