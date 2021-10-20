@@ -2,7 +2,7 @@ import  unittest
 from soda_machine import SodaMachine
 
 class TestFillRegister(unittest.TestCase):
-    """Tests for SodaMachine's fill_register function"""
+    """tests for SodaMachine's fill_register function"""
 
     def setUp(self):
         self.soda_machine = SodaMachine()
@@ -52,6 +52,7 @@ class TestFillInventory(unittest.TestCase):
         root_beer = 0
 
         print(f"The length of the inventory is {len(inventory)}.")
+
         for can in range(0, len(inventory)):
             with self.subTest("Subtest", can = can):
                 # supposed to be 10 Cola
@@ -68,6 +69,38 @@ class TestFillInventory(unittest.TestCase):
         result = [cola, orange_soda, root_beer]
 
         self.assertEqual(expected_result, result)
-                       
+
+class TestGetCoinFromRegister(unittest.TestCase):
+    """test get_coin_from_register method in SodaMachine Class"""
+    
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+    
+    def test_get_coin_from_register(self):
+        """make sure coin got removed from register list and return the same coin"""
+        register = self.soda_machine.register
+        
+        print(f"The length of the inventory is {len(register)}.")
+        for coin in range(0, len(register)):
+            with self.subTest("Subtest", coin = coin):
+                # . Test each type of coin can be returned from register
+                if register[coin] != None:
+                    can_be_returned = True
+                else:
+                    can_be_returned = False
+                #  Test that passing in a string that is not a valid coin name will return None
+                if register[coin].name == 'Quarter' or register[coin].name == 'Dime' or register[coin].name == 'Nickel' or register[coin].name == 'Penny':
+                    proper_name = True
+                else:
+                    proper_name = False
+                
+        if can_be_returned and proper_name == True:
+            result = True
+        else:
+            result = False
+
+        print(can_be_returned, proper_name)
+        self.assertTrue(result)
+
 if __name__ == '__main__':
     unittest.main()
