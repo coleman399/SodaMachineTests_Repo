@@ -1,4 +1,5 @@
 import  unittest
+from unittest import result
 from coins import Quarter
 from coins import Dime
 from coins import Nickel
@@ -218,14 +219,63 @@ class TestGetInventorySoda(unittest.TestCase):
         results = []
 
         for soda in soda_list:
-            if soda == self.soda_machine.get_inventory_soda(soda):
-                results.append(True)
+            if self.soda_machine.get_inventory_soda(soda) != None:
+                test_soda = self.soda_machine.get_inventory_soda(soda)
+                if soda == test_soda.name:
+                    results.append(True)
+                else:
+                    results.append(False)
             else:
-                results.append(False)
+                    results.append(False)   
         
         print(results)
         self.assertEqual(expected_results, results)
-        
+
+class TestReturnInventory(unittest.TestCase):
+    """test the return_inventory method in the SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+        self.cola = Cola()
+
+    def test_return_inventory(self):
+        """Instantiate a can and pass it into the method. Test that the len of self.inventory is now 31"""
+        cola = self.cola
+        results = None
+        self.soda_machine.return_inventory(cola)
+        if len(self.soda_machine.inventory) == 31:
+            results = True
+        else:
+            results = False
+
+        self.assertTrue(results)
+
+class TestDepositCoinsIntoRegister(unittest.TestCase):
+    """test the deposit_coins_into_register method in SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+        self.quarter = Quarter()
+        self.dime = Dime()
+        self.nickel = Nickel()
+        self.penny = Penny()
+    
+    def test_deposit_coins_into_register(self):
+        """Instantiate each of the 4 coins and append them to a list. Pass the list into the function, ensure the len of self.register is 92"""
+        quarter = self.quarter
+        dime = self.dime
+        nickel = self.nickel
+        penny = self.penny
+        coin_list = [quarter, dime, nickel, penny]
+        result = None
+
+        self.soda_machine.deposit_coins_into_register(coin_list)
+
+        if len(self.soda_machine.register) == 92:
+            result = True
+        else:
+            result = False
+
+        self.assertTrue(result)    
+
 if __name__ == '__main__':
     unittest.main()
 
