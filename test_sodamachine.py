@@ -1,5 +1,4 @@
 import  unittest
-from unittest import result
 from coins import Quarter
 from coins import Dime
 from coins import Nickel
@@ -24,7 +23,6 @@ class TestFillRegister(unittest.TestCase):
         nickels = 0
         pennies = 0
  
-        print(f"The length of the register is {len(register)}.")
         for coin in range(0, len(register)):
             with self.subTest("Subtest", coin = coin):
                 # supposed to be 8 quarters
@@ -54,12 +52,9 @@ class TestFillInventory(unittest.TestCase):
     def test_fill_inventory(self):
         """verify proper amount of cans are added to inventory list"""
         inventory = self.soda_machine.inventory
-
         cola = 0
         orange_soda = 0
         root_beer = 0
-
-        print(f"The length of the inventory is {len(inventory)}.")
 
         for can in range(0, len(inventory)):
             with self.subTest("Subtest", can = can):
@@ -109,7 +104,6 @@ class TestGetCoinFromRegister(unittest.TestCase):
         else:
             result = False
 
-        print(can_be_returned, proper_name)
         self.assertTrue(result)
 
 class TestRegisterHasCoin(unittest.TestCase):
@@ -164,7 +158,6 @@ class TestDetermineChangeValue(unittest.TestCase):
         else:
             result.append(False)
         
-        print(result)
         self.assertEqual(expected_result, result)
 
 class TestCalculateCoinValue(unittest.TestCase):
@@ -183,13 +176,11 @@ class TestCalculateCoinValue(unittest.TestCase):
         dime = self.dime
         nickel = self.nickel
         penny = self.penny
-
         coin_list = []
         coin_list.append(quarter)
         coin_list.append(dime)
         coin_list.append(nickel)
         coin_list.append(penny)
-
         result = None
 
         if self.soda_machine.calculate_coin_value(coin_list) == .41:
@@ -228,7 +219,6 @@ class TestGetInventorySoda(unittest.TestCase):
             else:
                     results.append(False)   
         
-        print(results)
         self.assertEqual(expected_results, results)
 
 class TestReturnInventory(unittest.TestCase):
@@ -278,4 +268,3 @@ class TestDepositCoinsIntoRegister(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
