@@ -102,5 +102,31 @@ class TestGetCoinFromRegister(unittest.TestCase):
         print(can_be_returned, proper_name)
         self.assertTrue(result)
 
+class RegisterHasCoin(unittest.TestCase):
+    """test register_has_coin method in SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+
+    def test_register_has_coin(self):
+        """test that each type of coin will return True, Test that a non-valid coin name will return False"""
+        register = self.soda_machine.register
+        counter = 0
+        proper_name = True
+
+        for coin in range(0, len(register)):
+            with self.subTest("Subtest", coin = coin):
+                # supposed to be 8 quarters
+                if register[coin].name == 'Quarter' or register[coin].name == 'Dime' or register[coin].name == 'Nickel' or register[coin].name == 'Penny':
+                    continue
+                else:
+                    counter += 1 
+        
+        if counter > 0:
+            proper_name = False
+                
+        self.assertTrue(proper_name) 
+
+       
+
 if __name__ == '__main__':
     unittest.main()
