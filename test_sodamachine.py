@@ -3,6 +3,9 @@ from coins import Quarter
 from coins import Dime
 from coins import Nickel
 from coins import Penny
+from cans import Cola
+from cans import OrangeSoda
+from cans import RootBeer 
 from soda_machine import SodaMachine
 
 class TestFillRegister(unittest.TestCase):
@@ -108,7 +111,7 @@ class TestGetCoinFromRegister(unittest.TestCase):
         print(can_be_returned, proper_name)
         self.assertTrue(result)
 
-class RegisterHasCoin(unittest.TestCase):
+class TestRegisterHasCoin(unittest.TestCase):
     """test register_has_coin method in SodaMachine Class"""
     def setUp(self):
         self.soda_machine = SodaMachine()
@@ -132,7 +135,7 @@ class RegisterHasCoin(unittest.TestCase):
                 
         self.assertTrue(proper_name) 
 
-class DetermineChangeValue(unittest.TestCase):
+class TestDetermineChangeValue(unittest.TestCase):
     """test determine_change_value method in SodaMachine Class"""
     def setUp(self):
         self.soda_machine = SodaMachine()
@@ -163,7 +166,7 @@ class DetermineChangeValue(unittest.TestCase):
         print(result)
         self.assertEqual(expected_result, result)
 
-class CalculateCoinValue(unittest.TestCase):
+class TestCalculateCoinValue(unittest.TestCase):
     """test calculate_coin_value method in SodaMachine Class"""
     def setUp(self):
         self.soda_machine = SodaMachine()
@@ -195,5 +198,33 @@ class CalculateCoinValue(unittest.TestCase):
         
         self.assertTrue(result)
 
+class TestGetInventorySoda(unittest.TestCase):
+    """test the get_inventory_soda method in the SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+        self.cola = Cola()
+        self.orange_soda = OrangeSoda()
+        self.root_beer = RootBeer()
+
+    def test_get_inventory_soda(self):
+        """pass in each of the 3 soda names, ensure the returned can has the same name"""
+        """pass in “Mountain Dew” and ensure None is returned"""
+        cola = self.cola.name
+        orange_soda = self.orange_soda.name
+        root_beer = self.root_beer.name
+        mountain_dew = "Mountain Dew"
+        soda_list = [cola, orange_soda, root_beer, mountain_dew]
+        expected_results = [True, True, True, False]
+        results = []
+
+        for soda in soda_list:
+            if soda == self.soda_machine.get_inventory_soda(soda):
+                results.append(True)
+            else:
+                results.append(False)
+        
+        print(results)
+        self.assertEqual(expected_results, results)
+        
 if __name__ == '__main__':
     unittest.main()
