@@ -1,10 +1,11 @@
 import  unittest
-from coins import Coin, Quarter
-from soda_machine import SodaMachine
+from coins import Quarter
 from wallet import Wallet
 from customer import Customer
 from cans import Can
 from backpack import Backpack
+
+
 class TestGetWalletCoin(unittest.TestCase):
 
     def setUp(self):
@@ -82,7 +83,7 @@ class add_can_to_backpack(unittest.TestCase):
         else:
             answer = False
 
-        self.assertEqual(answer, True)
+        self.assertEqual(True, answer)
         
 
 
