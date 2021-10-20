@@ -1,4 +1,8 @@
 import  unittest
+from coins import Quarter
+from coins import Dime
+from coins import Nickel
+from coins import Penny
 from soda_machine import SodaMachine
 
 class TestFillRegister(unittest.TestCase):
@@ -79,7 +83,9 @@ class TestGetCoinFromRegister(unittest.TestCase):
     def test_get_coin_from_register(self):
         """make sure coin got removed from register list and return the same coin"""
         register = self.soda_machine.register
-        
+        can_be_returned = None
+        proper_name = None
+
         print(f"The length of the inventory is {len(register)}.")
         for coin in range(0, len(register)):
             with self.subTest("Subtest", coin = coin):
@@ -100,6 +106,93 @@ class TestGetCoinFromRegister(unittest.TestCase):
             result = False
 
         print(can_be_returned, proper_name)
+        self.assertTrue(result)
+
+class RegisterHasCoin(unittest.TestCase):
+    """test register_has_coin method in SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+
+    def test_register_has_coin(self):
+        """test that each type of coin will return True, Test that a non-valid coin name will return False"""
+        register = self.soda_machine.register
+        counter = 0
+        proper_name = True
+
+        for coin in range(0, len(register)):
+            with self.subTest("Subtest", coin = coin):
+                # supposed to be 8 quarters
+                if register[coin].name == 'Quarter' or register[coin].name == 'Dime' or register[coin].name == 'Nickel' or register[coin].name == 'Penny':
+                    continue
+                else:
+                    counter += 1 
+        
+        if counter > 0:
+            proper_name = False
+                
+        self.assertTrue(proper_name) 
+
+class DetermineChangeValue(unittest.TestCase):
+    """test determine_change_value method in SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+
+    def test_determine_change_value(self):
+        """test with total payment higher, test with select_soda_price higher, test with two equal values"""
+        higher_payment = self.soda_machine.determine_change_value(10, 5)
+        higher_price = self.soda_machine.determine_change_value(5, 10)
+        equal_pay = self.soda_machine.determine_change_value(5, 5)
+        expected_result = [True, True, True]
+        result = []
+        
+        if higher_payment == 5:
+            result.append(True)
+        else:
+            result.append(False)
+        
+        if higher_price == -5:
+            result.append(True)
+        else:
+            result.append(False)
+        
+        if equal_pay == 0:
+            result.append(True)
+        else:
+            result.append(False)
+        
+        print(result)
+        self.assertEqual(expected_result, result)
+
+class CalculateCoinValue(unittest.TestCase):
+    """test calculate_coin_value method in SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+        self.quarter = Quarter()
+        self.dime = Dime()
+        self.nickel = Nickel()
+        self.penny = Penny()
+
+    def test_calculate_coin_value(self):
+        """instantiate each of the 4 coin types and append them to a list. Pass the list into this function, ensure the returned values is .41"""
+        """Pass in an empty list. Ensure the returned value is 0"""
+        quarter = self.quarter
+        dime = self.dime
+        nickel = self.nickel
+        penny = self.penny
+
+        coin_list = []
+        coin_list.append(quarter)
+        coin_list.append(dime)
+        coin_list.append(nickel)
+        coin_list.append(penny)
+
+        result = None
+
+        if self.soda_machine.calculate_coin_value(coin_list) == .41:
+            result = True
+        else:
+            result = False
+        
         self.assertTrue(result)
 
 if __name__ == '__main__':
