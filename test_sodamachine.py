@@ -1,4 +1,8 @@
 import  unittest
+from coins import Quarter
+from coins import Dime
+from coins import Nickel
+from coins import Penny
 from soda_machine import SodaMachine
 
 class TestFillRegister(unittest.TestCase):
@@ -128,7 +132,7 @@ class RegisterHasCoin(unittest.TestCase):
                 
         self.assertTrue(proper_name) 
 
-class DetermineChangeValue:
+class DetermineChangeValue(unittest.TestCase):
     """test determine_change_value method in SodaMachine Class"""
     def setUp(self):
         self.soda_machine = SodaMachine()
@@ -158,6 +162,38 @@ class DetermineChangeValue:
         
         print(result)
         self.assertEqual(expected_result, result)
+
+class CalculateCoinValue(unittest.TestCase):
+    """test calculate_coin_value method in SodaMachine Class"""
+    def setUp(self):
+        self.soda_machine = SodaMachine()
+        self.quarter = Quarter()
+        self.dime = Dime()
+        self.nickel = Nickel()
+        self.penny = Penny()
+
+    def test_calculate_coin_value(self):
+        """instantiate each of the 4 coin types and append them to a list. Pass the list into this function, ensure the returned values is .41"""
+        """Pass in an empty list. Ensure the returned value is 0"""
+        quarter = self.quarter
+        dime = self.dime
+        nickel = self.nickel
+        penny = self.penny
+
+        coin_list = []
+        coin_list.append(quarter)
+        coin_list.append(dime)
+        coin_list.append(nickel)
+        coin_list.append(penny)
+
+        result = None
+
+        if self.soda_machine.calculate_coin_value(coin_list) == .41:
+            result = True
+        else:
+            result = False
+        
+        self.assertTrue(result)
 
 if __name__ == '__main__':
     unittest.main()
