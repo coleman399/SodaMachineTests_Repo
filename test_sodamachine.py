@@ -89,7 +89,7 @@ class TestGetCoinFromRegister(unittest.TestCase):
         counter = 0
         # Test each type of coin can be returned from register
         for coin in range(0, len(register)):
-            if self.soda_machine.get_coin_from_register(register[coin].name) == 'Quarter' or register[coin].name == 'Dime' or register[coin].name == 'Nickel' or register[coin].name == 'Penny':
+            if self.soda_machine.get_coin_from_register(register[coin].name) == 'Quarter' or self.soda_machine.get_coin_from_register(register[coin].name) == 'Dime' or self.soda_machine.get_coin_from_register(register[coin].name) == 'Nickel' or self.soda_machine.get_coin_from_register(register[coin].name) == 'Penny':
                 counter += 1
             else:
                 continue
