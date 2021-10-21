@@ -222,12 +222,20 @@ class TestCalculateCoinValue(unittest.TestCase):
         coin_list.append(nickel)
         coin_list.append(penny)
         result = None
-
         if self.soda_machine.calculate_coin_value(coin_list) == .41:
             result = True
         else:
             result = False
-        
+        self.assertTrue(result)
+
+    def test_calculate_coin_value(self):
+        """Pass in an empty list. Ensure the returned value is 0"""
+        coin_list = []
+        result = None
+        if self.soda_machine.calculate_coin_value(coin_list) == 0:
+            result = True
+        else:
+            result = False
         self.assertTrue(result)
 
 class TestGetInventorySoda(unittest.TestCase):
@@ -238,28 +246,41 @@ class TestGetInventorySoda(unittest.TestCase):
         self.orange_soda = OrangeSoda()
         self.root_beer = RootBeer()
 
-    def test_get_inventory_soda(self):
-        """pass in each of the 3 soda names, ensure the returned can has the same name"""
-        """pass in “Mountain Dew” and ensure None is returned"""
-        cola = self.cola.name
-        orange_soda = self.orange_soda.name
-        root_beer = self.root_beer.name
-        mountain_dew = "Mountain Dew"
-        soda_list = [cola, orange_soda, root_beer, mountain_dew]
-        expected_results = [True, True, True, False]
-        results = []
+    def test_get_inventory_cola(self):
+        """pass in cola, ensure the returned can has the same name"""
+        cola = Cola()
+        results = 0
+        compared_can = self.soda_machine.get_inventory_soda(cola.name)
+        if compared_can.name == cola.name:
+            results += 1
+        self.assertEqual(1, results)
 
-        for soda in soda_list:
-            if self.soda_machine.get_inventory_soda(soda) != None:
-                test_soda = self.soda_machine.get_inventory_soda(soda)
-                if soda == test_soda.name:
-                    results.append(True)
-                else:
-                    results.append(False)
-            else:
-                    results.append(False)   
-        
-        self.assertEqual(expected_results, results)
+    def test_get_inventory_orange_soda(self):
+        """pass in orange soda, ensure the returned can has the same name"""
+        orange_soda = OrangeSoda()
+        results = 0
+        compared_can = self.soda_machine.get_inventory_soda(orange_soda.name)
+        if compared_can.name == orange_soda.name:
+            results += 1
+        self.assertEqual(1, results)
+
+    def test_get_inventory_root_beer(self):
+        """pass in root beer, ensure the returned can has the same name"""
+        rootbeer = RootBeer()
+        results = 0
+        compared_can = self.soda_machine.get_inventory_soda(rootbeer.name)
+        if compared_can.name == rootbeer.name:
+            results += 1
+        self.assertEqual(1, results)
+
+    def test_get_inventory_cola(self):
+        """pass in “Mountain Dew” and ensure None is returned"""
+        mountain_dew = "Mountain Dew"
+        results = 0
+        compared_can = self.soda_machine.get_inventory_soda(mountain_dew)
+        if compared_can == None:
+            results += 1
+        self.assertEqual(1, results)
 
 class TestReturnInventory(unittest.TestCase):
     """test the return_inventory method in the SodaMachine Class"""
