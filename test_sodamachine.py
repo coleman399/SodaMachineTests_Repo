@@ -13,7 +13,6 @@ class TestFillRegister(unittest.TestCase):
     def test_fill_register(self):
         """verify proper amount of coins are being added to register list"""
         register = self.soda_machine.register
-
         quarters = 0
         dimes = 0
         nickels = 0
@@ -33,10 +32,8 @@ class TestFillRegister(unittest.TestCase):
                 #should be 50 pennies
                 else:
                     pennies += 1
-        
         expected_result = [8, 10, 20, 50]
         result = [quarters, dimes, nickels, pennies]
-
         self.assertEqual(expected_result, result)
 
 class TestFillInventory(unittest.TestCase):
@@ -66,7 +63,6 @@ class TestFillInventory(unittest.TestCase):
 
         expected_result = [10, 10, 10]
         result = [cola, orange_soda, root_beer]
-
         self.assertEqual(expected_result, result)
 
 class TestGetCoinFromRegister(unittest.TestCase):
@@ -82,7 +78,6 @@ class TestGetCoinFromRegister(unittest.TestCase):
         compared_coin = self.soda_machine.get_coin_from_register(quarter.name)
         if compared_coin.name == quarter.name:
             results += 1
-
         self.assertEqual(1, results)
 
     def test_get_dime_from_register(self):
@@ -92,7 +87,6 @@ class TestGetCoinFromRegister(unittest.TestCase):
         compared_coin = self.soda_machine.get_coin_from_register(dime.name)
         if compared_coin.name == dime.name:
             results += 1
-
         self.assertEqual(1, results)
 
     def test_get_nickel_from_register(self):
@@ -102,7 +96,6 @@ class TestGetCoinFromRegister(unittest.TestCase):
         compared_coin = self.soda_machine.get_coin_from_register(nickel.name)
         if compared_coin.name == nickel.name:
             results += 1
-
         self.assertEqual(1, results)
  
     def test_get_penny_from_register(self):
@@ -112,7 +105,6 @@ class TestGetCoinFromRegister(unittest.TestCase):
         compared_coin = self.soda_machine.get_coin_from_register(penny.name)
         if compared_coin.name == penny.name:
             results += 1
-
         self.assertEqual(1, results)
 
 class TestRegisterHasCoin(unittest.TestCase):
@@ -211,16 +203,11 @@ class TestCalculateCoinValue(unittest.TestCase):
 
     def test_calculate_coin_value(self):
         """instantiate each of the 4 coin types and append them to a list. Pass the list into this function, ensure the returned values is .41"""
-        """Pass in an empty list. Ensure the returned value is 0"""
-        quarter = self.quarter
-        dime = self.dime
-        nickel = self.nickel
-        penny = self.penny
         coin_list = []
-        coin_list.append(quarter)
-        coin_list.append(dime)
-        coin_list.append(nickel)
-        coin_list.append(penny)
+        coin_list.append(self.quarter)
+        coin_list.append(self.dime)
+        coin_list.append(self.nickel)
+        coin_list.append(self.penny)
         result = None
         if self.soda_machine.calculate_coin_value(coin_list) == .41:
             result = True
@@ -290,14 +277,12 @@ class TestReturnInventory(unittest.TestCase):
 
     def test_return_inventory(self):
         """Instantiate a can and pass it into the method. Test that the len of self.inventory is now 31"""
-        cola = self.cola
         results = None
-        self.soda_machine.return_inventory(cola)
+        self.soda_machine.return_inventory(self.cola)
         if len(self.soda_machine.inventory) == 31:
             results = True
         else:
             results = False
-
         self.assertTrue(results)
 
 class TestDepositCoinsIntoRegister(unittest.TestCase):
@@ -311,20 +296,13 @@ class TestDepositCoinsIntoRegister(unittest.TestCase):
     
     def test_deposit_coins_into_register(self):
         """Instantiate each of the 4 coins and append them to a list. Pass the list into the function, ensure the len of self.register is 92"""
-        quarter = self.quarter
-        dime = self.dime
-        nickel = self.nickel
-        penny = self.penny
-        coin_list = [quarter, dime, nickel, penny]
+        coin_list = [self.quarter, self.dime, self.nickel, self.penny]
         result = None
-
         self.soda_machine.deposit_coins_into_register(coin_list)
-
         if len(self.soda_machine.register) == 92:
             result = True
         else:
             result = False
-
         self.assertTrue(result)    
 
 if __name__ == '__main__':
