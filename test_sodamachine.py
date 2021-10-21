@@ -1,7 +1,7 @@
 import unittest
+from unittest import result
 from coins import Quarter, Dime, Nickel, Penny
 from cans import Cola, OrangeSoda, RootBeer
-
 from soda_machine import SodaMachine
 
 class TestFillRegister(unittest.TestCase):
@@ -75,65 +75,95 @@ class TestGetCoinFromRegister(unittest.TestCase):
     def setUp(self):
         self.soda_machine = SodaMachine()
     
-    def test_get_coin_from_register(self):
-        """make sure coin got removed from register list and return the same coin"""
-        can_be_returned = None
-        proper_name = None
-        expected_result = [True, False]
-        result = []
-        dime = Dime()
+    def test_get_quarter_from_register(self):
+        """make sure quarter got removed from register list and return the same coin"""
         quarter = Quarter()
-        nickel = Nickel()
-        penny = Penny()
-        counter = 0
-        # Test each type of coin can be returned from register
-        while self.soda_machine.get_coin_from_register(quarter) == 'Quarter' :
-            counter += 1
-        while self.soda_machine.get_coin_from_register(dime) == 'Dime' :
-            counter += 1
-        while self.soda_machine.get_coin_from_register(nickel) == 'Nickel' :
-           counter += 1
-        while self.soda_machine.get_coin_from_register(penny) == 'Penny':
-            counter += 1
-        #  Test that passing in a string that is not a valid coin name will return None
-        if self.soda_machine.get_coin_from_register("Made up Soda Name") == None:
-            proper_name = True
-        else:
-            proper_name = False
-    
-        if counter == 88:
-            can_be_returned = True
-        else:
-            can_be_returned = False
-        
-        result = [proper_name, can_be_returned]
+        results = 0
+        compared_coin = self.soda_machine.get_coin_from_register(quarter.name)
+        if compared_coin.name == quarter.name:
+            results += 1
 
-        self.assertEquals(expected_result, result)
+        self.assertEqual(1, results)
+
+    def test_get_dime_from_register(self):
+        """make sure dime got removed from register list and return the same coin"""
+        dime = Dime()
+        results = 0
+        compared_coin = self.soda_machine.get_coin_from_register(dime.name)
+        if compared_coin.name == dime.name:
+            results += 1
+
+        self.assertEqual(1, results)
+
+    def test_get_nickel_from_register(self):
+        """make sure nickel got removed from register list and return the same coin"""
+        nickel = Nickel()
+        results = 0
+        compared_coin = self.soda_machine.get_coin_from_register(nickel.name)
+        if compared_coin.name == nickel.name:
+            results += 1
+
+        self.assertEqual(1, results)
+ 
+    def test_get_penny_from_register(self):
+        """make sure penny got removed from register list and return the same coin"""
+        penny = Penny()
+        results = 0
+        compared_coin = self.soda_machine.get_coin_from_register(penny.name)
+        if compared_coin.name == penny.name:
+            results += 1
+
+        self.assertEqual(1, results)
 
 class TestRegisterHasCoin(unittest.TestCase):
     """test register_has_coin method in SodaMachine Class"""
     def setUp(self):
         self.soda_machine = SodaMachine()
+    
+    def test_register_has_quarter(self):
+        """make sure quarter returns true"""
+        quarter = Quarter()
+        results = 0
+        compared_coin = self.soda_machine.register_has_coin(quarter.name)
+        if compared_coin == True:
+            results += 1
+        self.assertEqual(1, results)
 
-    def test_register_has_coin(self):
-        """test that each type of coin will return True, Test that a non-valid coin name will return False"""
-        register = self.soda_machine.register
-        counter = 0
-        proper_name = True
+    def test_register_has_dime(self):
+        """make sure dime returns true"""
+        dime = Dime()
+        results = 0
+        compared_coin = self.soda_machine.register_has_coin(dime.name)
+        if compared_coin == True:
+            results += 1
+        self.assertEqual(1, results)
 
-        for coin in range(0, len(register)):
-            with self.subTest("Subtest", coin = coin):
-                # supposed to be 8 quarters
-                if self.soda_machine.register_has_coin(register[coin].name) == True:
-                    continue
-                else:
-                    counter += 1 
-
-        
-        if counter > 0:
-            proper_name = False
+    def test_register_has_nickel(self):
+        """make sure nickel returns true"""
+        nickel = Nickel()
+        results = 0
+        compared_coin = self.soda_machine.register_has_coin(nickel.name)
+        if compared_coin == True:
+            results += 1
+        self.assertEqual(1, results)
                 
-        self.assertTrue(proper_name) 
+    def test_register_has_penny(self):
+        """make sure penny returns true"""
+        penny = Penny()
+        results = 0
+        compared_coin = self.soda_machine.register_has_coin(penny.name)
+        if compared_coin == True:
+            results += 1
+        self.assertEqual(1, results)
+
+    def test_register_does_not_have_nonsense(self):
+        """make sure nonsense returns false"""
+        nonsense_coin = "nonsense coin"
+        results = 0
+        compared_coin = self.soda_machine.register_has_coin(nonsense_coin)
+        if compared_coin == False:
+            results += 1
+        self.assertEqual(1, results)
 
 class TestDetermineChangeValue(unittest.TestCase):
     """test determine_change_value method in SodaMachine Class"""
