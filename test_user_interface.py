@@ -1,9 +1,7 @@
-from unittest import result
-from cans import Cola, OrangeSoda, RootBeer
 import unittest
+from cans import Cola, OrangeSoda, RootBeer
 from coins import Nickel, Penny, Quarter, Dime
-
-from user_interface import display_payment_value, get_unique_can_names, try_parse_int, validate_main_menu
+from user_interface import display_payment_value, get_unique_can_names, try_parse_int, validate_coin_selection, validate_main_menu
 
 class TestUserInterface(unittest.TestCase):
 
@@ -11,13 +9,24 @@ class TestUserInterface(unittest.TestCase):
         """Test to make sure only 1-4 return values"""
         #self.main_menu = validate_main_menu('')
         validate_main_menu('')
-        answer = 1
-        check_answer = 5
-        for i in range (1, 4):
-            if validate_main_menu(i) == (True, 1) or (True, 2) or (True, 3) or (True, 4):
-                answer += 1
+        answer = []
+        check_answer = [1, 2, 3, 4, 8]
+        i = 1
+        #for i in range (1, 4):
+        if validate_main_menu(i) == (True, 1):
+            answer.append(1)
+            i +=1
+        if validate_main_menu(i) == (True, 2):
+            answer.append(i)
+            i +=1
+        if validate_main_menu(i) == (True, 3):
+            answer.append(i)
+            i += 1
+        if validate_main_menu(i) == (True, 4):
+            answer.append(i)
+            i += 1
         if validate_main_menu(8) == (False, None):
-            answer += 1
+            answer.append(8)
         self.assertEqual(answer, check_answer)
         
 
@@ -66,12 +75,24 @@ class TestUserInterface(unittest.TestCase):
             
     def test_validate_coin_selection(self):
         result_list = []
-        expected_list = [1,1,1,1,1,0]
+        expected_list = [1,2,3,4,5,0]
         i = 1
-        for i in range (1, 6):
-            if validate_main_menu(i) == (True, "Quarter") or (True, "Dime") or (True, "Nickel") or (True, "Penny") or (True, "Done"):
-                result_list.append(1)
-        if validate_main_menu(42) == (False, None):
+        if validate_coin_selection(i) == (True, "Quarter"):
+            result_list.append(i)
+            i += 1
+        if validate_coin_selection(i) == (True, "Dime"):
+            result_list.append(i)
+            i += 1
+        if validate_coin_selection(i) == (True, "Nickel"):
+            result_list.append(i)
+            i += 1
+        if validate_coin_selection(i) == (True, "Penny"):
+            result_list.append(i)
+            i +=1
+        if validate_coin_selection(i) == (True, "Done"):
+            result_list.append(i)
+            i += 42
+        if validate_coin_selection(i) == (False, None):
             result_list.append(0)
 
         self.assertEqual(expected_list, result_list)

@@ -1,11 +1,7 @@
 import unittest
-from coins import Quarter
-from coins import Dime
-from coins import Nickel
-from coins import Penny
-from cans import Cola
-from cans import OrangeSoda
-from cans import RootBeer 
+from coins import Quarter, Dime, Nickel, Penny
+from cans import Cola, OrangeSoda, RootBeer
+
 from soda_machine import SodaMachine
 
 class TestFillRegister(unittest.TestCase):
@@ -81,30 +77,36 @@ class TestGetCoinFromRegister(unittest.TestCase):
     
     def test_get_coin_from_register(self):
         """make sure coin got removed from register list and return the same coin"""
-        register = self.soda_machine.register
         can_be_returned = None
         proper_name = None
         expected_result = [True, False]
         result = []
+        dime = Dime()
+        quarter = Quarter()
+        nickel = Nickel()
+        penny = Penny()
         counter = 0
         # Test each type of coin can be returned from register
-        for coin in range(0, len(register)):
-            if self.soda_machine.get_coin_from_register(register[coin].name) == 'Quarter' or self.soda_machine.get_coin_from_register(register[coin].name) == 'Dime' or self.soda_machine.get_coin_from_register(register[coin].name) == 'Nickel' or self.soda_machine.get_coin_from_register(register[coin].name) == 'Penny':
-                counter += 1
-            else:
-                continue
+        while self.soda_machine.get_coin_from_register(quarter) == 'Quarter' :
+            counter += 1
+        while self.soda_machine.get_coin_from_register(dime) == 'Dime' :
+            counter += 1
+        while self.soda_machine.get_coin_from_register(nickel) == 'Nickel' :
+           counter += 1
+        while self.soda_machine.get_coin_from_register(penny) == 'Penny':
+            counter += 1
         #  Test that passing in a string that is not a valid coin name will return None
-        if self.soda_machine.get_coin_from_register("Made up Soda Name") != None:
+        if self.soda_machine.get_coin_from_register("Made up Soda Name") == None:
             proper_name = True
         else:
             proper_name = False
-
-        if counter == 78:
+    
+        if counter == 88:
             can_be_returned = True
         else:
             can_be_returned = False
         
-        result = [can_be_returned, proper_name]
+        result = [proper_name, can_be_returned]
 
         self.assertEquals(expected_result, result)
 
@@ -126,6 +128,7 @@ class TestRegisterHasCoin(unittest.TestCase):
                     continue
                 else:
                     counter += 1 
+
         
         if counter > 0:
             proper_name = False
