@@ -170,30 +170,35 @@ class TestDetermineChangeValue(unittest.TestCase):
     def setUp(self):
         self.soda_machine = SodaMachine()
 
-    def test_determine_change_value(self):
+    def test_determine_higher_payment(self):
         """test with total payment higher, test with select_soda_price higher, test with two equal values"""
         higher_payment = self.soda_machine.determine_change_value(10, 5)
-        higher_price = self.soda_machine.determine_change_value(5, 10)
-        equal_pay = self.soda_machine.determine_change_value(5, 5)
-        expected_result = [True, True, True]
-        result = []
-        
+        result = None
         if higher_payment == 5:
-            result.append(True)
+            result = True
         else:
-            result.append(False)
-        
+            result = False
+        self.assertTrue(result)
+
+    def test_determine_higher_price(self):
+        """test with total payment higher, test with select_soda_price higher, test with two equal values"""
+        higher_price = self.soda_machine.determine_change_value(5, 10)
+        result = None
         if higher_price == -5:
-            result.append(True)
+            result = True
         else:
-            result.append(False)
-        
+            result = False
+        self.assertTrue(result)
+
+    def test_determine_equal_pay(self):
+        """test with total payment higher, test with select_soda_price higher, test with two equal values"""
+        equal_pay = self.soda_machine.determine_change_value(5, 5)
+        result = None
         if equal_pay == 0:
-            result.append(True)
+            result = True
         else:
-            result.append(False)
-        
-        self.assertEqual(expected_result, result)
+            result = False
+        self.assertTrue(result)
 
 class TestCalculateCoinValue(unittest.TestCase):
     """test calculate_coin_value method in SodaMachine Class"""
