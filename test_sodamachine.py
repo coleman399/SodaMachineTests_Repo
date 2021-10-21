@@ -17,7 +17,6 @@ class TestFillRegister(unittest.TestCase):
         dimes = 0
         nickels = 0
         pennies = 0
- 
         for coin in range(0, len(register)):
             with self.subTest("Subtest", coin = coin):
                 # supposed to be 8 quarters
@@ -48,7 +47,6 @@ class TestFillInventory(unittest.TestCase):
         cola = 0
         orange_soda = 0
         root_beer = 0
-
         for can in range(0, len(inventory)):
             with self.subTest("Subtest", can = can):
                 # supposed to be 10 Cola
@@ -60,7 +58,6 @@ class TestFillInventory(unittest.TestCase):
                 # supposed to be 10 Root Beer
                 else:
                     root_beer += 1
-
         expected_result = [10, 10, 10]
         result = [cola, orange_soda, root_beer]
         self.assertEqual(expected_result, result)
